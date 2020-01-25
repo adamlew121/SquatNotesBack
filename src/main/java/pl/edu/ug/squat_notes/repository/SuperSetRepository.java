@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface SuperSetRepository extends JpaRepository<SuperSet, Long> {
 
-    List<SuperSet> findAllByTraining(Training training);
+    List<SuperSet> findAllByTrainingId(Long id);
 
 }

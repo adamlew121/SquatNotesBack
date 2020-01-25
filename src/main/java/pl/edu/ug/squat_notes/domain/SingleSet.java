@@ -1,5 +1,7 @@
 package pl.edu.ug.squat_notes.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,7 @@ public class SingleSet {
     @ManyToOne
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "super_set_id")
     private SuperSet superSet;
     private Double weight;
@@ -33,6 +35,7 @@ public class SingleSet {
         this.exercise = exercise;
     }
 
+    @JsonIgnore
     public SuperSet getSuperSet() {
         return superSet;
     }

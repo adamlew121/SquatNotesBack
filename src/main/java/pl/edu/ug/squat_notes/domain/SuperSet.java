@@ -1,5 +1,7 @@
 package pl.edu.ug.squat_notes.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ public class SuperSet {
             mappedBy = "superSet")
     private List<SingleSet> sets = new ArrayList<SingleSet>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "training_id")
     private Training training;
 
@@ -38,14 +40,19 @@ public class SuperSet {
     }
 
     public void setSets(List<SingleSet> sets) {
+        for (SingleSet s: sets) {
+            s.setSuperSet(this);
+        }
         this.sets = sets;
     }
 
+    @JsonIgnore
     public Training getTraining() {
         return training;
     }
 
-    public void setTraining(Training training) {
+    //setter is package-private because training field for SuperSet is set by addSuperSet in Training class
+    void setTraining(Training training) {
         this.training = training;
     }
 }
