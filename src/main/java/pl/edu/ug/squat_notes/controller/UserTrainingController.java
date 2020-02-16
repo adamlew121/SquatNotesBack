@@ -38,6 +38,7 @@ public class UserTrainingController {
         this.singleSetService = singleSetService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/api/user/{id}/training")
     public ResponseEntity<List<Training>> getTrainings(@PathVariable Long id) {
         return trainingService.findAllByUserId(id);

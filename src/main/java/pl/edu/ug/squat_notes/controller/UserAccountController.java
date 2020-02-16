@@ -22,6 +22,7 @@ public class UserAccountController {
         this.userService = userService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/api/user")
     ResponseEntity<User> getUser(@RequestParam(name = "login") String login, @RequestParam(name = "password") String password) {
         return userService.findByLoginAndPassword(login, password);
