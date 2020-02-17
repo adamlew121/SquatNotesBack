@@ -18,9 +18,6 @@ public class DbInit {
     private ExerciseRepository exerciseRepository;
 
     @Autowired
-    private SuperSetRepository superSetRepository;
-
-    @Autowired
     private TrainingRepository trainingRepository;
 
     @Autowired
@@ -29,12 +26,18 @@ public class DbInit {
     @Autowired
     private MuscleRepository muscleRepository;
 
-    //do skasowania
-    @Autowired
-    private ExerciseService exerciseService;
-
     @PostConstruct
     private void postConstruct() {
+        //init user
+        User user = new User();
+        user.setName("Test user");
+        user.setDateOfBirthday(new Date(90, 4, 20));
+        user.setEmail("testuser@test.pl");
+        user.setLogin("TEST");
+        user.setPassword("TEST123!");
+        user.setSex("male");
+        user.setSurname("TEST");
+        userRepository.save(user);
         //init muscles
         Muscle chest = new Muscle("Chest");
         muscleRepository.save(chest);
@@ -69,46 +72,47 @@ public class DbInit {
 
         //init training with sets
         Random rand = new Random();
-        SuperSet superSet = new SuperSet();
-        SingleSet singleSet = new SingleSet();
-        singleSet.setExercise(ohp);
-        singleSet.setReps(rand.nextInt(10 - 5) + 5);
-        singleSet.setRPE(Math.round((5d + 5d * rand.nextDouble())*2) / 2d);
-        singleSet.setWeight(50.0);
-        singleSet.setSuperSet(superSet);
-        superSet.addSet(singleSet);
-        singleSet = new SingleSet();
-        singleSet.setExercise(squat);
-        singleSet.setReps(8);
-        singleSet.setRPE(9.5);
-        singleSet.setWeight(150.0);
-        singleSet.setSuperSet(superSet);
-        superSet.addSet(singleSet);
-        Training training = new Training();
-        training.setDate(new Date(System.currentTimeMillis()));
-        training.setName("Push day");
-        training.setDifficulty(2);
+        for(int i = 0; i < 20; i++) {
+            Training training = new Training();
+            training.setDate(new Date(System.currentTimeMillis()));
+            training.setName("Push day");
+            training.setDifficulty(rand.nextInt(10)+1);
+            training.setUser(user);
+            for(int j = 0; j < 5; j++) {
+                SuperSet superSet = new SuperSet();
+                SingleSet singleSet = new SingleSet();
+                singleSet.setExercise(ohp);
+                singleSet.setReps(rand.nextInt(10 - 5) + 5);
+                singleSet.setRPE(Math.round((5d + 5d * rand.nextDouble()) * 2) / 2d);
+                singleSet.setWeight(50d + i * rand.nextDouble());
+                singleSet.setSuperSet(superSet);
+                superSet.addSet(singleSet);
+                singleSet = new SingleSet();
+                singleSet.setExercise(squat);
+                singleSet.setReps(3);
+                singleSet.setRPE(7d);
+                singleSet.setWeight(160d + i * rand.nextDouble());
+                singleSet.setSuperSet(superSet);
+                superSet.addSet(singleSet);
+                singleSet = new SingleSet();
+                singleSet.setExercise(benchPress);
+                singleSet.setReps(6);
+                singleSet.setRPE(9.5);
+                singleSet.setWeight(80d + i * rand.nextDouble());
+                singleSet.setSuperSet(superSet);
+                superSet.addSet(singleSet);
+                singleSet = new SingleSet();
+                singleSet.setExercise(deadlift);
+                singleSet.setReps(1);
+                singleSet.setRPE(10d);
+                singleSet.setWeight(200d + i * rand.nextDouble());
+                singleSet.setSuperSet(superSet);
+                superSet.addSet(singleSet);
 
-        //init user
-        User user = new User();
-        user.setName("Jeff");
-        user.setDateOfBirthday(new Date(90, 4, 20));
-        user.setEmail("JeFFrEy@jeff.jeffi");
-        user.setLogin("JEFF");
-        user.setPassword("JEFF");
-        user.setSex("male");
-        user.setSurname("Jeffinito");
-        userRepository.save(user);
-//        superSetRepository.save(superSet);
-        training.setUser(user);
-        training.addSuperSet(superSet);
-        userRepository.save(user);
-//        superSetRepository.save(superSet);
-        trainingRepository.save(training);
-        //do skasowania
-        List<Exercise> exercises = exerciseService.findAllExercises();
-        for (Exercise e: exercises) {
-            System.out.println(e);
+                training.addSuperSet(superSet);
+                userRepository.save(user);
+                trainingRepository.save(training);
+            }
         }
     }
 }

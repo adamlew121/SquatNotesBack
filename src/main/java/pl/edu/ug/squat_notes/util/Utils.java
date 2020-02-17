@@ -1,5 +1,7 @@
 package pl.edu.ug.squat_notes.util;
 
+import pl.edu.ug.squat_notes.domain.ChartPoint;
+import pl.edu.ug.squat_notes.domain.SingleSet;
 import pl.edu.ug.squat_notes.domain.Training;
 import pl.edu.ug.squat_notes.domain.User;
 
@@ -34,5 +36,21 @@ public class Utils {
         matcher = pattern.matcher(password);
         return matcher.matches();
 
+    }
+
+    public static Double calculateMax(Double weight, Integer reps, Double RPE) {
+        //weight x reps x 0.0333 + weight = 1RM
+        Double result = 0d;
+        if (RPE == null) {
+            result = weight * reps * 0.0333 + weight;
+        } else {
+            result = weight * (reps + (10d - RPE)) * 0.0333 + weight;
+        }
+        return result;
+    }
+
+    public static ChartPoint calculateChartPoint(SingleSet singleSet, Date trainingDate) {
+        Double oneRepMax = calculateMax(singleSet.getWeight(), singleSet.getReps(), singleSet.getRPE());
+        return new ChartPoint(trainingDate, oneRepMax);
     }
 }
