@@ -33,7 +33,7 @@ public class DbInit {
         user.setName("Test user");
         user.setDateOfBirthday(new Date(90, 4, 20));
         user.setEmail("testuser@test.pl");
-        user.setLogin("TEST");
+        user.setLogin("TEST123");
         user.setPassword("TEST123!");
         user.setSex("male");
         user.setSurname("TEST");

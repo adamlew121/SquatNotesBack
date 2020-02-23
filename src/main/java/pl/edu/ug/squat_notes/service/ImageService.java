@@ -9,4 +9,6 @@ import java.sql.Blob;
 
 public interface ImageService {
     ResponseEntity<User> uploadProfilePhoto(Long idUser, MultipartFile image) throws IOException;
+
+    ResponseEntity<byte[]> getProfilePicture(Long idUser);
 }

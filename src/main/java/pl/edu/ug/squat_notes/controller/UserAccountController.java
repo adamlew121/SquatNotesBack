@@ -8,7 +8,8 @@ import pl.edu.ug.squat_notes.domain.User;
 import pl.edu.ug.squat_notes.repository.UserRepository;
 import pl.edu.ug.squat_notes.service.ImageService;
 import pl.edu.ug.squat_notes.service.UserService;
-import java.sql.Blob;
+
+import java.io.IOException;
 
 /**
  * Rest controller for user in account aspects
@@ -19,13 +20,13 @@ public class UserAccountController {
 
     private UserRepository userRepository;
     private UserService userService;
- //   private ImageService imageService;
+    private ImageService imageService;
 
     @Autowired
-    public UserAccountController(UserRepository userRepository, UserService userService/*, ImageService imageService*/) {
+    public UserAccountController(UserRepository userRepository, UserService userService, ImageService imageService) {
         this.userRepository = userRepository;
         this.userService = userService;
-      //  this.imageService = imageService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/api/user")
@@ -38,8 +39,13 @@ public class UserAccountController {
         return userService.addUser(user);
     }
 
-//    @PutMapping("/api/user/{id}/profile-photo")
-//    ResponseEntity<User> uploadProfilePhoto(@PathVariable Long id, @RequestBody MultipartFile image) {
-//        return imageService.uploadProfilePhoto(id, image);
-//    }
+    @PutMapping("/api/user/{id}/profile-photo")
+    ResponseEntity<User> uploadProfilePhoto(@PathVariable Long id, @RequestBody MultipartFile image) throws IOException {
+        return imageService.uploadProfilePhoto(id, image);
+    }
+
+    @GetMapping("/api/user/{id}/profile-photo")
+    ResponseEntity<byte[]> getProfilePicture(@PathVariable Long id) {
+        return imageService.getProfilePicture(id);
+    }
 }
