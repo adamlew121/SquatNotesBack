@@ -6,9 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.ug.squat_notes.domain.Exercise;
 import pl.edu.ug.squat_notes.domain.Muscle;
+import pl.edu.ug.squat_notes.domain.User;
 import pl.edu.ug.squat_notes.repository.ExerciseRepository;
 import pl.edu.ug.squat_notes.repository.MuscleRepository;
 import pl.edu.ug.squat_notes.repository.SingleSetRepository;
+import pl.edu.ug.squat_notes.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,12 +21,17 @@ public class ExerciseServiceImpl implements ExerciseService {
     private ExerciseRepository exerciseRepository;
     private SingleSetRepository singleSetRepository;
     private MuscleRepository muscleRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, SingleSetRepository singleSetRepository, MuscleRepository muscleRepository) {
+    public ExerciseServiceImpl(ExerciseRepository exerciseRepository,
+                               SingleSetRepository singleSetRepository,
+                               MuscleRepository muscleRepository,
+                               UserRepository userRepository) {
         this.exerciseRepository = exerciseRepository;
         this.singleSetRepository = singleSetRepository;
         this.muscleRepository = muscleRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -82,6 +89,17 @@ public class ExerciseServiceImpl implements ExerciseService {
         Optional<Muscle> muscle = muscleRepository.findByName(muscleName);
         if (muscle.isPresent()) {
             return ResponseEntity.ok(exerciseRepository.findAllByTargetMusclesContaining(muscle.get()));
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Exercise>> findAllExercisesByUserId(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()) {
+            return ResponseEntity.ok(exerciseRepository.findAllByAuthor(user.get()));
         }
         else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

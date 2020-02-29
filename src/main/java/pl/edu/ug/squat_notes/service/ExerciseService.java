@@ -11,6 +11,8 @@ public interface ExerciseService {
 
     ResponseEntity<List<Exercise>>  findAllExercisesByMuscleName(String muscleName);
 
+    ResponseEntity<List<Exercise>> findAllExercisesByUserId(Long id);
+
     ResponseEntity<Exercise> addExercise(Exercise exercise);
 
     ResponseEntity<Exercise> updateExercise(Exercise exercise);

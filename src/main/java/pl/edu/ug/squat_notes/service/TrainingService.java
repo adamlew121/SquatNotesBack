@@ -9,4 +9,6 @@ public interface TrainingService {
     ResponseEntity<List<Training>> findAllByUserId(Long id);
 
     ResponseEntity<Training> addTraining(Training training);
+
+    ResponseEntity<Training> deleteTraining(Training training);
 }

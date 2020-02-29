@@ -50,9 +50,9 @@ public class UserTrainingController {
 
     @PostMapping("/api/user/{id}/training")
     ResponseEntity<Training> addTraining(@PathVariable Long id, @RequestBody Training training) {
-        if (training.getUser().getId() == null || !training.getUser().getId().equals(id)) {
+       /* if (training.getUser().getId() == null || !training.getUser().getId().equals(id)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        }*/
         return trainingService.addTraining(training);
     }
 
@@ -60,4 +60,13 @@ public class UserTrainingController {
     public ResponseEntity<List<ChartPoint>> getTrainings(@PathVariable Long idUser, @RequestParam String exerciseName) {
         return progressService.getChartByExerciseNameAndUserId(exerciseName, idUser);
     }
+
+    @PutMapping("/api/user/{id}/training")
+    ResponseEntity<Training> putTraining(@PathVariable Long id, @RequestBody Training training) {
+        if (training.getUser().getId() == null || !training.getUser().getId().equals(id)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        return trainingService.deleteTraining(training);
+    }
+
 }

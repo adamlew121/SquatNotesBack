@@ -16,7 +16,8 @@ public class SuperSet {
     //so bidirectional relationship doesn't decrease performance
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
-            mappedBy = "superSet")
+            mappedBy = "superSet",
+            orphanRemoval = true)
     private List<SingleSet> sets = new ArrayList<SingleSet>();
 
     @ManyToOne(cascade = CascadeType.ALL)

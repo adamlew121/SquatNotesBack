@@ -44,4 +44,15 @@ public class TrainingServiceImpl implements TrainingService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
+    @Override
+    public ResponseEntity<Training> deleteTraining(Training training) {
+        if (Utils.isValid(training)) {
+            trainingRepository.delete(training);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
 }
