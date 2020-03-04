@@ -15,12 +15,12 @@ public class Training {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+   // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
     private String name;
     private Date date;
     private Integer difficulty;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "training", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<SuperSet> superSetList = new ArrayList<SuperSet>();
 
     public Long getId() {

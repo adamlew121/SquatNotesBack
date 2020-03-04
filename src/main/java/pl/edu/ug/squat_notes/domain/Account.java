@@ -16,7 +16,7 @@ public abstract class Account {
     protected String email;
     protected String surname;
     protected String login;
-    @JsonProperty(access = WRITE_ONLY)
+ //   @JsonProperty(access = WRITE_ONLY)
     protected String password;
     protected Date dateOfBirthday;
     protected String sex;
