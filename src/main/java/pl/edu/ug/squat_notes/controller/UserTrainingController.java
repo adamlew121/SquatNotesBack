@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.ug.squat_notes.domain.ChartPoint;
-import pl.edu.ug.squat_notes.domain.Exercise;
 import pl.edu.ug.squat_notes.domain.Training;
 import pl.edu.ug.squat_notes.repository.SingleSetRepository;
 import pl.edu.ug.squat_notes.repository.SuperSetRepository;

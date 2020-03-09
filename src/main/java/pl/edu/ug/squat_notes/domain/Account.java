@@ -3,7 +3,8 @@ package pl.edu.ug.squat_notes.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.sql.Date;
+
+import java.util.Date;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
