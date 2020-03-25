@@ -38,9 +38,14 @@ public class ExerciseController {
         return exerciseService.findAllExercisesByMuscleName(muscleName);
     }
 
-    @GetMapping("/api/exercises/{id}")
-    ResponseEntity<List<Exercise>> getExercisesByUser(@PathVariable Long id) {
+    @GetMapping("/api/exercises/user/{id}")
+    public ResponseEntity<List<Exercise>> getExercisesByUser(@PathVariable Long id) {
         return exerciseService.findAllExercisesByUserId(id);
+    }
+
+    @GetMapping("/api/exercises/default")
+    public ResponseEntity<List<Exercise>> getDefaultExercises() {
+        return exerciseService.findAllExercisesDefault();
     }
 
     @PostMapping("/api/exercise")
