@@ -13,6 +13,8 @@ public interface ExerciseService {
 
     ResponseEntity<List<Exercise>> findAllExercisesByUserId(Long id);
 
+    ResponseEntity<List<Exercise>> findAllExercisesDefault();
+
     ResponseEntity<Exercise> addExercise(Exercise exercise);
 
     ResponseEntity<Exercise> updateExercise(Exercise exercise);

@@ -105,4 +105,10 @@ public class ExerciseServiceImpl implements ExerciseService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
+    @Override
+    public ResponseEntity<List<Exercise>> findAllExercisesDefault() {
+        List<Exercise> ex = exerciseRepository.findAllByAuthorNull();
+            return ResponseEntity.ok(exerciseRepository.findAllByAuthorNull());
+    }
 }
