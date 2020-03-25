@@ -17,4 +17,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
     List<Exercise> findAllByTargetMusclesContaining(Muscle muscle);
 
     List<Exercise> findAllByAuthor(User author);
+
+    List<Exercise> findAllByAuthorNull();
 }
