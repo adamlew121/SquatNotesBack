@@ -1,12 +1,10 @@
 package pl.edu.ug.squat_notes.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
 import java.util.Date;
 
-import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
 @MappedSuperclass
 public abstract class Account {

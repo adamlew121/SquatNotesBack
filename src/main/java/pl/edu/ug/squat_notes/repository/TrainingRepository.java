@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface TrainingRepository extends JpaRepository<Training, Long> {
     List<Training> findAllByUserId(Long id);
+
+    List<Training> findAllByUserIdOrderByDateAsc(Long id);
 }

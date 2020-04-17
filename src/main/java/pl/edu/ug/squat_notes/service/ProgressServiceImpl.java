@@ -35,7 +35,7 @@ public class ProgressServiceImpl implements ProgressService {
         if (!userRepository.findById(idUser).isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        List<Training> trainingList = trainingRepository.findAllByUserId(idUser);
+        List<Training> trainingList = trainingRepository.findAllByUserIdOrderByDateAsc(idUser);
         List<ChartPoint> result = new ArrayList<>();
         for (Training t : trainingList) {
             List<SingleSet> setsToChart = singleSetRepository.findAllByTrainingIdAndExerciseName(exerciseName, t.getId());

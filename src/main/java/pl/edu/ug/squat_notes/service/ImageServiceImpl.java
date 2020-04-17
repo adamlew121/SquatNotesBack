@@ -10,6 +10,7 @@ import pl.edu.ug.squat_notes.domain.User;
 import pl.edu.ug.squat_notes.repository.UserRepository;
 
 import java.io.*;
+import java.net.URLConnection;
 import java.util.Optional;
 
 @Service
@@ -23,11 +24,15 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ResponseEntity<User> uploadProfilePhoto(Long idUser, MultipartFile image) throws IOException {
+    public ResponseEntity uploadProfilePhoto(Long idUser, MultipartFile image) throws IOException {
         Optional<User> user = userRepository.findById(idUser);
         if (user.isPresent()) {
+            if (image.getBytes().length >= 1048576) {
+                return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(null);
+            }
             user.get().setProfilePicture(image.getBytes());
-            return ResponseEntity.ok(userRepository.save(user.get()));
+            userRepository.save(user.get());
+            return ResponseEntity.status(HttpStatus.OK).body(null);
         } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
@@ -38,12 +43,28 @@ public class ImageServiceImpl implements ImageService {
         Optional<User> user = userRepository.findById(idUser);
         if (user.isPresent()) {
             byte[] profilePhotoBytes = user.get().getProfilePicture();
-            if (profilePhotoBytes != null) {
+            MediaType profilePhotoType = getMediaType(profilePhotoBytes);
+            if (profilePhotoType != null) {
                 return ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_JPEG)
+                        .contentType(profilePhotoType)
                         .body(profilePhotoBytes);
             }
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    private MediaType getMediaType(byte[] imageBytes) {
+        if (imageBytes != null) {
+            try {
+                String contentType = URLConnection.guessContentTypeFromStream(new ByteArrayInputStream(imageBytes));
+                MediaType imageType = MediaType.parseMediaType(contentType);
+                if (MediaType.IMAGE_JPEG.equals(imageType) ||
+                        MediaType.IMAGE_PNG.equals(imageType)) {
+                    return imageType;
+                }
+            } catch (IOException e) {
+            }
+        }
+        return null;
     }
 }

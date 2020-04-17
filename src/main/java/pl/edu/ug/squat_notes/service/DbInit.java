@@ -9,7 +9,6 @@ import pl.edu.ug.squat_notes.repository.*;
 
 import javax.annotation.PostConstruct;
 import java.sql.Date;
-import java.util.Locale;
 import java.util.Random;
 
 @Component
@@ -100,7 +99,7 @@ public class DbInit {
             for (int i = 0; i < 20; i++) {
                 Training training = new Training();
                 long dayTime = 1000 * 60 * 60 * 24;
-                training.setDate(new Date(System.currentTimeMillis() - dayTime * i * 3));
+                training.setDate(new Date(System.currentTimeMillis() - dayTime * 100 + dayTime * i * 3));
                 training.setName(trainingNamesTmp[i % trainingNamesTmp.length]);
                 training.setDifficulty(rand.nextInt(10) + 1);
                 training.setUser(user);
