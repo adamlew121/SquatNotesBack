@@ -1,9 +1,6 @@
 package pl.edu.ug.squat_notes.util;
 
-import pl.edu.ug.squat_notes.domain.ChartPoint;
-import pl.edu.ug.squat_notes.domain.SingleSet;
-import pl.edu.ug.squat_notes.domain.Training;
-import pl.edu.ug.squat_notes.domain.User;
+import pl.edu.ug.squat_notes.domain.*;
 
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -15,11 +12,24 @@ public class Utils {
 
     public static Boolean isValid(Training training) {
         return training.getUser() != null
-                && !training.getSuperSetList().isEmpty()
+                && !(training.getSuperSetList().isEmpty())
                 && training.getDate() != null;
     }
 
-    public static Boolean isValid(User user) {
+    public static Boolean isValid(Message message) {
+        return message.getMessageDate() != null
+                && !(message.getText().length() == 0);
+              //  && (message.getChatBox() != null);
+    }
+
+    public static Boolean isValid(Chatbox chatbox) {
+        return chatbox.getUser() != null
+                && !(chatbox.getMessageList().isEmpty())
+                && chatbox.getDate() != null
+                && !(chatbox.getTitle().length() == 0);
+    }
+
+    public static Boolean isValid(Account user) {
         return user.getLogin() != null
                 && user.getLogin().length() >= 3
                 && user.getPassword() != null

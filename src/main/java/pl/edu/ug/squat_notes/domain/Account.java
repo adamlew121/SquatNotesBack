@@ -1,13 +1,17 @@
 package pl.edu.ug.squat_notes.domain;
 
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
-@MappedSuperclass
-public abstract class Account {
+@Entity
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
@@ -15,10 +19,21 @@ public abstract class Account {
     protected String email;
     protected String surname;
     protected String login;
- //   @JsonProperty(access = WRITE_ONLY)
+    //@JsonProperty(access = WRITE_ONLY)
     protected String password;
     protected Date dateOfBirthday;
     protected String sex;
+    /*
+    type = {
+        0 => USER
+        1 => SUPPORT
+     */
+    protected int type;
+    @JsonIgnore
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(length = 1048576)
+    private byte[] profilePicture;
 
     public Long getId() {
         return id;
@@ -83,4 +98,22 @@ public abstract class Account {
     public void setSex(String sex) {
         this.sex = sex;
     }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+
 }

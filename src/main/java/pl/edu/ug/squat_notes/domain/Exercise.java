@@ -25,7 +25,7 @@ public class Exercise {
     //field to allow or prevent delete and modify exercise by user
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User author;
+    private Account author;
 
     public Exercise() {
     }
@@ -72,11 +72,11 @@ public class Exercise {
     }
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public User getAuthor() {
+    public Account getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Account author) {
         this.author = author;
     }
 }

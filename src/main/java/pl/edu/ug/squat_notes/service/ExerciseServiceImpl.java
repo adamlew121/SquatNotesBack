@@ -6,11 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.ug.squat_notes.domain.Exercise;
 import pl.edu.ug.squat_notes.domain.Muscle;
-import pl.edu.ug.squat_notes.domain.User;
+import pl.edu.ug.squat_notes.domain.Account;
 import pl.edu.ug.squat_notes.repository.ExerciseRepository;
 import pl.edu.ug.squat_notes.repository.MuscleRepository;
 import pl.edu.ug.squat_notes.repository.SingleSetRepository;
-import pl.edu.ug.squat_notes.repository.UserRepository;
+import pl.edu.ug.squat_notes.repository.AccountRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,17 +21,17 @@ public class ExerciseServiceImpl implements ExerciseService {
     private ExerciseRepository exerciseRepository;
     private SingleSetRepository singleSetRepository;
     private MuscleRepository muscleRepository;
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
     public ExerciseServiceImpl(ExerciseRepository exerciseRepository,
                                SingleSetRepository singleSetRepository,
                                MuscleRepository muscleRepository,
-                               UserRepository userRepository) {
+                               AccountRepository accountRepository) {
         this.exerciseRepository = exerciseRepository;
         this.singleSetRepository = singleSetRepository;
         this.muscleRepository = muscleRepository;
-        this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public ResponseEntity<List<Exercise>> findAllExercisesByUserId(Long id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<Account> user = accountRepository.findById(id);
         if(user.isPresent()) {
             return ResponseEntity.ok(exerciseRepository.findAllByAuthor(user.get()));
         }

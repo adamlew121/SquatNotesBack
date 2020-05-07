@@ -1,18 +1,24 @@
 package pl.edu.ug.squat_notes.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
-    private User user;
     private Date messageDate;
-    private String title;
     private String text;
+    private Boolean sentByUser;
+    @ManyToOne
+    @JoinColumn(name = "chatbox_id")
+    private Chatbox chatbox;
 
     public Message() {    }
 
@@ -20,10 +26,10 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", user=" + user +
                 ", messageDate=" + messageDate +
-                ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
+                ", sentByUser=" + sentByUser +
+                ", chatBox=" + chatbox +
                 '}';
     }
 
@@ -35,12 +41,12 @@ public class Message {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Boolean getSentByUser() {
+        return sentByUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSentByUser(Boolean sentByUser) {
+        this.sentByUser = sentByUser;
     }
 
     public Date getMessageDate() {
@@ -51,19 +57,19 @@ public class Message {
         this.messageDate = messageDate;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getText() {
         return text;
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Chatbox getChatBox() {
+        return chatbox;
+    }
+
+    public void setChatBox(Chatbox chatBox) {
+        this.chatbox = chatBox;
     }
 }

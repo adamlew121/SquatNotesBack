@@ -6,8 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import pl.edu.ug.squat_notes.domain.User;
-import pl.edu.ug.squat_notes.repository.UserRepository;
+import pl.edu.ug.squat_notes.domain.Account;
+import pl.edu.ug.squat_notes.repository.AccountRepository;
 
 import java.io.*;
 import java.net.URLConnection;
@@ -16,22 +16,22 @@ import java.util.Optional;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public ImageServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public ImageServiceImpl(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 
     @Override
     public ResponseEntity uploadProfilePhoto(Long idUser, MultipartFile image) throws IOException {
-        Optional<User> user = userRepository.findById(idUser);
+        Optional<Account> user = accountRepository.findById(idUser);
         if (user.isPresent()) {
             if (image.getBytes().length >= 1048576) {
                 return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(null);
             }
             user.get().setProfilePicture(image.getBytes());
-            userRepository.save(user.get());
+            accountRepository.save(user.get());
             return ResponseEntity.status(HttpStatus.OK).body(null);
         } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
@@ -40,7 +40,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ResponseEntity<byte[]> getProfilePicture(Long idUser) {
-        Optional<User> user = userRepository.findById(idUser);
+        Optional<Account> user = accountRepository.findById(idUser);
         if (user.isPresent()) {
             byte[] profilePhotoBytes = user.get().getProfilePicture();
             MediaType profilePhotoType = getMediaType(profilePhotoBytes);

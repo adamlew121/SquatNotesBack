@@ -9,7 +9,7 @@ import pl.edu.ug.squat_notes.domain.SingleSet;
 import pl.edu.ug.squat_notes.domain.Training;
 import pl.edu.ug.squat_notes.repository.SingleSetRepository;
 import pl.edu.ug.squat_notes.repository.TrainingRepository;
-import pl.edu.ug.squat_notes.repository.UserRepository;
+import pl.edu.ug.squat_notes.repository.AccountRepository;
 import pl.edu.ug.squat_notes.util.Utils;
 
 import java.util.ArrayList;
@@ -21,18 +21,18 @@ public class ProgressServiceImpl implements ProgressService {
 
     private SingleSetRepository singleSetRepository;
     private TrainingRepository trainingRepository;
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public ProgressServiceImpl(SingleSetRepository singleSetRepository, TrainingRepository trainingRepository, UserRepository userRepository) {
+    public ProgressServiceImpl(SingleSetRepository singleSetRepository, TrainingRepository trainingRepository, AccountRepository accountRepository) {
         this.singleSetRepository = singleSetRepository;
         this.trainingRepository = trainingRepository;
-        this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override
     public ResponseEntity<List<ChartPoint>> getChartByExerciseNameAndUserId(String exerciseName, Long idUser) {
-        if (!userRepository.findById(idUser).isPresent()) {
+        if (!accountRepository.findById(idUser).isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         List<Training> trainingList = trainingRepository.findAllByUserIdOrderByDateAsc(idUser);

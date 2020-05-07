@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.edu.ug.squat_notes.domain.Training;
 import pl.edu.ug.squat_notes.repository.TrainingRepository;
-import pl.edu.ug.squat_notes.repository.UserRepository;
+import pl.edu.ug.squat_notes.repository.AccountRepository;
 import pl.edu.ug.squat_notes.util.Utils;
 
 import java.util.List;
@@ -15,17 +15,17 @@ import java.util.List;
 public class TrainingServiceImpl implements TrainingService {
 
     private TrainingRepository trainingRepository;
-    private UserRepository userRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public TrainingServiceImpl(TrainingRepository trainingRepository, UserRepository userRepository) {
+    public TrainingServiceImpl(TrainingRepository trainingRepository, AccountRepository accountRepository) {
         this.trainingRepository = trainingRepository;
-        this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override
     public ResponseEntity<List<Training>> findAllByUserId(Long id) {
-        if (!userRepository.findById(id).isPresent()) {
+        if (!accountRepository.findById(id).isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         List<Training> trainingList = trainingRepository.findAllByUserId(id);

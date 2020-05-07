@@ -16,7 +16,7 @@ public class Training {
     @ManyToOne
     @JoinColumn(name = "user_id")
    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User user;
+    private Account user;
     private String name;
     private Date date;
     private Integer difficulty;
@@ -31,11 +31,11 @@ public class Training {
         this.id = id;
     }
 
-    public User getUser() {
+    public Account getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Account user) {
         this.user = user;
     }
 
