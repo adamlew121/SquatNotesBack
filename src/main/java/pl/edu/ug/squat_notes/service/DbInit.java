@@ -147,7 +147,7 @@ public class DbInit {
         chatBox.setDate(new Date(20, 4, 23));
         chatBox.setClosed(false);
         chatBoxRepository.save(chatBox);
-        
+
 
         chatBox = new Chatbox();
         chatBox.setUser(user);

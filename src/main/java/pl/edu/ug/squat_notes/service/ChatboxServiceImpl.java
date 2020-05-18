@@ -49,7 +49,7 @@ public class ChatboxServiceImpl implements ChatboxService {
     @Override
     public ResponseEntity<Chatbox> updateChatbox(Chatbox chatbox) {
         Optional<Chatbox> chatboxFromDB = chatBoxRepository.findById(chatbox.getId());
-        if (chatboxFromDB.isPresent() && chatboxFromDB.get().getUser().getId().equals(chatbox.getUser().getId())) {
+        if (chatboxFromDB.isPresent() && chatboxFromDB.get().getUser().getId().equals(chatbox.getUser().getId()) && Utils.isValid(chatbox)) {
             return ResponseEntity.ok(chatBoxRepository.save(chatbox));
         } else {
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);

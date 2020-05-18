@@ -23,6 +23,9 @@ public class Utils {
     }
 
     public static Boolean isValid(Chatbox chatbox) {
+        for (Message msg: chatbox.getMessageList()) {
+            if (!isValid(msg)) return false;
+        }
         return chatbox.getUser() != null
                 && !(chatbox.getMessageList().isEmpty())
                 && chatbox.getDate() != null

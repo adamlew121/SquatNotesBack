@@ -1,11 +1,10 @@
 package pl.edu.ug.squat_notes.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
@@ -14,6 +13,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date messageDate;
+    @Length(min = 2, message = "The field must be at least 2 characters")
     private String text;
     private Boolean sentByUser;
     @ManyToOne

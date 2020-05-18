@@ -1,6 +1,8 @@
 package pl.edu.ug.squat_notes.domain;
 
 import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class Chatbox {
     private Date date;
     private Boolean closed;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "chatbox", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonSerialize(using = MessageListSerializer.class)
     private List<Message> messageList = new ArrayList<Message>();
 
     public Long getId() {
