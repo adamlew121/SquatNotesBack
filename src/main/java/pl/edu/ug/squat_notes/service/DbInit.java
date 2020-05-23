@@ -29,10 +29,12 @@ public class DbInit {
 
     private MessageRepository messageRepository;
 
+    private TrainingService trainingService;
+
     @Autowired
     public DbInit(ExerciseRepository exerciseRepository, TrainingRepository trainingRepository, AccountRepository accountRepository,
                   AccountService accountService, MuscleRepository muscleRepository, ChatboxRepository chatBoxRepository,
-                  MessageRepository messageRepository) {
+                  MessageRepository messageRepository, TrainingService trainingService) {
         this.exerciseRepository = exerciseRepository;
         this.trainingRepository = trainingRepository;
         this.accountRepository = accountRepository;
@@ -40,6 +42,7 @@ public class DbInit {
         this.muscleRepository = muscleRepository;
         this.chatBoxRepository = chatBoxRepository;
         this.messageRepository = messageRepository;
+        this.trainingService = trainingService;
     }
 
     @PostConstruct
@@ -192,7 +195,7 @@ public class DbInit {
 
         String[] trainingNamesTmp = {"Push day", "Pull day", "Chest day", "Back day", "Arms day"};
         //init training with sets
-        for (int u = 0; u < 10; u++) {
+        for (int u = 0; u < 200; u++) {
             Faker faker = new Faker();
             user = new Account();
             String firstName = faker.name().firstName();
@@ -201,14 +204,19 @@ public class DbInit {
             user.setSurname(lastName);
             user.setDateOfBirthday(faker.date().birthday(16, 50));
             user.setEmail(firstName + "." + lastName + "@gmail.com");
-            user.setLogin(firstName + "123");
+            user.setLogin(firstName);
             user.setPassword(firstName + "123!");
             user.setSex((u % 2 == 0 ? "male" : "female"));
             if(accountService.addUser(user).getStatusCode() != HttpStatus.OK) {
                 continue;
             }
             Random rand = new Random();
-            int lvlTmp = rand.nextInt(5);
+            int lvlTmp = 1;
+            if (user.getSex() == "male") {
+                lvlTmp = rand.nextInt(10);
+            } else {
+                lvlTmp = rand.nextInt(5);
+            }
             for (int i = 0; i < 20; i++) {
                 Training training = new Training();
                 long dayTime = 1000 * 60 * 60 * 24;
@@ -229,27 +237,33 @@ public class DbInit {
                     singleSet.setExercise(squat);
                     singleSet.setReps(3);
                     singleSet.setRPE(7d);
-                    singleSet.setWeight(lvlTmp * 40d + i * rand.nextDouble());
+                    singleSet.setWeight(lvlTmp * 30d + i * rand.nextDouble());
                     singleSet.setSuperSet(superSet);
                     superSet.addSet(singleSet);
                     singleSet = new SingleSet();
                     singleSet.setExercise(benchPress);
                     singleSet.setReps(6);
                     singleSet.setRPE(9.5);
-                    singleSet.setWeight(lvlTmp * 10d + i * rand.nextDouble());
+                    singleSet.setWeight(lvlTmp * 15d + i * rand.nextDouble());
                     singleSet.setSuperSet(superSet);
                     superSet.addSet(singleSet);
                     singleSet = new SingleSet();
                     singleSet.setExercise(deadlift);
                     singleSet.setReps(1);
                     singleSet.setRPE(10d);
-                    singleSet.setWeight(lvlTmp * 50d + i * rand.nextDouble());
+                    singleSet.setWeight(lvlTmp * 40d + i * rand.nextDouble());
                     singleSet.setSuperSet(superSet);
                     superSet.addSet(singleSet);
 
                     training.addSuperSet(superSet);
                     accountRepository.save(user);
-                    trainingRepository.save(training);
+                    if(i == 19 && j ==4) {
+                        // aby obliczyc poziom zaawansowania
+                        trainingService.addTraining(training);
+                    } else {
+                        // aby szybciej startowal
+                        trainingRepository.save(training);
+                    }
                 }
             }
         }

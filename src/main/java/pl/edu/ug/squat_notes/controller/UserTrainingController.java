@@ -67,5 +67,4 @@ public class UserTrainingController {
         }
         return trainingService.deleteTraining(training);
     }
-
 }

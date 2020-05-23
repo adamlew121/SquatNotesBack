@@ -12,4 +12,6 @@ public interface AccountService {
     ResponseEntity<Account> addUser(Account user);
 
     ResponseEntity<List<Account>> findAll();
+
+    ResponseEntity<Account> findById(Long id);
 }

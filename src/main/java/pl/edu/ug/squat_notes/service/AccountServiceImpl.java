@@ -62,9 +62,21 @@ public class AccountServiceImpl implements AccountService {
         filteredUser.setId(user.getId());
         filteredUser.setLogin(user.getLogin());
         filteredUser.setName(user.getName());
+        filteredUser.setEmail(user.getEmail());
         filteredUser.setSurname(user.getSurname());
         filteredUser.setSex(user.getSex());
         filteredUser.setDateOfBirthday(user.getDateOfBirthday());
+        filteredUser.setAdvanced(user.getAdvanced());
         return filteredUser;
+    }
+
+    @Override
+    public ResponseEntity<Account> findById(Long id) {
+        Optional<Account> user = accountRepository.findById(id);
+        if(user.isPresent()) {
+            return ResponseEntity.ok(filterUserFields(user.get()));
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
     }
 }

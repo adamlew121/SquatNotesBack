@@ -1,6 +1,7 @@
 package pl.edu.ug.squat_notes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +36,11 @@ public class UserAccountController {
     @GetMapping("/api/user")
     ResponseEntity<Account> getUser(@RequestParam(name = "login") String login, @RequestParam(name = "password") String password) {
         return accountService.findByLoginAndPassword(login, password);
+    }
+
+    @GetMapping("/api/user/{id}")
+    ResponseEntity<Account> getUserById(@PathVariable Long id) {
+        return accountService.findById(id);
     }
 
     @PostMapping("/api/user")

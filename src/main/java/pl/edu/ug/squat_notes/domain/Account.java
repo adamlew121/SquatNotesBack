@@ -34,6 +34,7 @@ public class Account {
     @Basic(fetch = FetchType.LAZY)
     @Column(length = 1048576)
     private byte[] profilePicture;
+    private Integer advanced = 0;
 
     public Long getId() {
         return id;
@@ -115,5 +116,11 @@ public class Account {
         this.profilePicture = profilePicture;
     }
 
+    public Integer getAdvanced() {
+        return advanced;
+    }
 
+    public void setAdvanced(Integer advanced) {
+        this.advanced = advanced;
+    }
 }
