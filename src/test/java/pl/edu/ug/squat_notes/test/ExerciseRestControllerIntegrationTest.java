@@ -1,23 +1,13 @@
-package pl.edu.ug.squat_notes;
+package pl.edu.ug.squat_notes.test;
 
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import pl.edu.ug.squat_notes.domain.*;
 import pl.edu.ug.squat_notes.repository.ExerciseRepository;
 import pl.edu.ug.squat_notes.repository.MuscleRepository;
-import pl.edu.ug.squat_notes.repository.TrainingRepository;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

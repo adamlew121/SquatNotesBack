@@ -1,4 +1,4 @@
-package pl.edu.ug.squat_notes;
+package pl.edu.ug.squat_notes.test;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

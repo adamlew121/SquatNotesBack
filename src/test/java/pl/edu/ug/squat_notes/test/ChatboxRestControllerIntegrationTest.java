@@ -1,4 +1,4 @@
-package pl.edu.ug.squat_notes;
+package pl.edu.ug.squat_notes.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
