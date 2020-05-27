@@ -156,12 +156,6 @@ public class UtilsTest {
         assertThat(Utils.isValid(account)).isFalse();
     }
 
-
-
-
-
-
-
     protected Account getValidAccount() {
         Account acc = new Account();
         acc.setName("def");
@@ -227,10 +221,5 @@ public class UtilsTest {
 
         return training;
     }
-
-
-
-
-
 
 }
