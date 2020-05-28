@@ -4,5 +4,7 @@ Następnie uruchomić skrypt server
 Opcjonalnie uruchomić skrypt client aby zobaczyć wygenerowaną bazę po uruchomieniu projektu
 
 ---------------------------------
-Projekt można uruchomić za pomocą mavena
+Projekt można zainstalować za pomocą mavena
 mvn clean install
+
+i uruchomić najlepiej w edytorze intellij przez maven komendą: spring-boot:run
