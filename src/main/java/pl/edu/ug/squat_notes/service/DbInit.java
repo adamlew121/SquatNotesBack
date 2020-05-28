@@ -195,7 +195,7 @@ public class DbInit {
 
         String[] trainingNamesTmp = {"Push day", "Pull day", "Chest day", "Back day", "Arms day"};
         //init training with sets
-        for (int u = 0; u < 0; u++) {
+        for (int u = 0; u < 200; u++) {
             Faker faker = new Faker();
             user = new Account();
             String firstName = faker.name().firstName();
