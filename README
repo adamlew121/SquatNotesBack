@@ -1,0 +1,8 @@
+Trzeba ściągnąć HSQL z tego linka:
+--------
+Następnie uruchomić skrypt server
+Opcjonalnie uruchomić skrypt client aby zobaczyć wygenerowaną bazę po uruchomieniu projektu
+
+---------------------------------
+Projekt można uruchomić za pomocą mavena
+mvn clean install
