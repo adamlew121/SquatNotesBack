@@ -3,5 +3,6 @@ Backend aplikacji webowej SquatNotes. Aplikacja jest częściowo pokryta testami
 Do zainstalowania projektu wymagany jest Maven (komenda "mvn clean install").
 Do prawidłowego działania aplikacji potrzebna jest baza danych Postgres, szczegóły w pliku konfiguracyjnym aplikacji.
 
+
 W starszych wersjach, zamiast Postgres'a używany był HSQL, sterowniki dostępne pod linkiem:
 https://drive.google.com/drive/folders/1YeSiyvvKHcy_lg7Hfb_99bXws6OcigmL?usp=sharing
