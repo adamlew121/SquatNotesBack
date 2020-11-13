@@ -1,10 +1,7 @@
-Trzeba ściągnąć HSQL z tego linka:
+Backend aplikacji webowej SquatNotes. Aplikacja jest częściowo pokryta testami jednostowymi i integracyjnymi. W niedalekiej przyszłości planuję wzbogacić projekt o moduł Spring Security.
+
+Do zainstalowania projektu wymagany jest Maven (komenda "mvn clean install").
+Do prawidłowego działania aplikacji potrzebna jest baza danych Postgres, szczegóły w pliku konfiguracyjnym aplikacji.
+
+W starszych wersjach, zamiast Postgres'a używany był HSQL, sterowniki dostępne pod linkiem:
 https://drive.google.com/drive/folders/1YeSiyvvKHcy_lg7Hfb_99bXws6OcigmL?usp=sharing
-Następnie uruchomić skrypt server
-Opcjonalnie uruchomić skrypt client aby zobaczyć wygenerowaną bazę po uruchomieniu projektu
-
----------------------------------
-Projekt można zainstalować za pomocą mavena
-mvn clean install
-
-i uruchomić najlepiej w edytorze intellij przez maven komendą: spring-boot:run
